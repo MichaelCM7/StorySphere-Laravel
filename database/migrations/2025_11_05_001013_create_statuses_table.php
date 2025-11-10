@@ -12,8 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('statuses', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->increments('book_status_id');
+            $table->string('status_name', 50)->unique();
+            $table->boolean('is_deleted')->default(0);
+            $table->index('status_name');
         });
     }
 

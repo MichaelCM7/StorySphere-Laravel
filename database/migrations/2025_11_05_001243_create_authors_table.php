@@ -12,8 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('authors', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->increments('author_id');
+            
+            // Core Data
+            $table->string('author_name', 100);
+            $table->text('biography')->nullable();
+            
+            // Timestamps and Flags
+            $table->timestamp('created_at')->useCurrent();
+            $table->boolean('is_deleted')->default(0);
+
+            // Custom Index
+            $table->index('author_name');
         });
     }
 
